@@ -52,7 +52,9 @@ Também foram aplicados soluções de Design Patterns como:
 - Jackson;
 - Maven;
 - Git;
+- Lombok
 - Slf4J;
+- ModelMapper
 - JUnit;
 - Mockito;
 - SonarQube.
