@@ -46,7 +46,7 @@ Também foram aplicados soluções de Design Patterns como:
 ### Tecnologias
 
 - JavaEE 8 (CDI, EJB, JAX-RS/RestEasy, JPA/Hibernate);
-- Java 11;
+- Java 8;
 - JBoss EAP 7.4.x;
 - PostgreSQL;
 - Jackson;
