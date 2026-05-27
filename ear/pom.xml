@@ -69,7 +69,7 @@
                         <webModule>
                             <groupId>com.lucianobrito.poc</groupId>
                             <artifactId>api</artifactId>
-                            <contextRoot>/javaee</contextRoot>
+                            <contextRoot>/poc-javaee</contextRoot>
                         </webModule>
                         <ejbModule>
                             <groupId>com.lucianobrito.poc</groupId>

@@ -48,7 +48,7 @@ Também foram aplicados soluções de Design Patterns como:
 - JavaEE 8 (CDI, EJB, JAX-RS/RestEasy, JPA/Hibernate);
 - Java 11;
 - JBoss EAP 7.4.x;
-- Postgres;
+- PostgreSQL;
 - Jackson;
 - Maven;
 - Git;

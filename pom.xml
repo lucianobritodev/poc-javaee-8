@@ -13,22 +13,32 @@
     <packaging>pom</packaging>
 
     <properties>
+        <!-- PROJECT DEFINITIONS -->
         <revision>1.0.0</revision><!-- Propagação Nativa de Versão -->
         <javaee.version>8.0.1</javaee.version>
-        <java.version>11</java.version>
+        <java.version>8</java.version>
+
+        <!-- PROJECT PROPERTIES -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.title>Poc-JavaEE-8</project.title>
+
+        <!-- PLUGINS -->
         <maven.compiler.target>${java.version}</maven.compiler.target>
-        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <jacoco.version>0.8.12</jacoco.version>
+
+        <!-- DEPENDENCIES -->
         <postgres.version>42.7.7</postgres.version>
         <jackson.version>2.19.1</jackson.version>
-        <jacoco.version>0.8.12</jacoco.version>
-        <mockito.version>5.17.0</mockito.version>
+        <mockito.version>4.11.0</mockito.version>
         <junit.version>5.11.0</junit.version>
 
-        <sonar.projectName>${project.artifactId}</sonar.projectName>
+        <!-- SONARQUBE -->
+        <sonar.projectKey>${project.artifactId}</sonar.projectKey>
+        <sonar.projectName>${project.title}</sonar.projectName>
+        <sonar.url>http://localhost:9000</sonar.url>
         <sonar.surefire.reportsPath>target/surefire-reports</sonar.surefire.reportsPath>
         <sonar.coverage.jacoco.xmlReportPaths>target/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
-        <sonar.inclusions>**/services/**,**/controllers/**</sonar.inclusions>
+        <sonar.inclusions>**/services/**,**/controllers/**, **/libs/**</sonar.inclusions>
         <sonar.java.source>${java.version}</sonar.java.source>
     </properties>
 
@@ -140,26 +150,36 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-            <version>1.5.18</version>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>2.0.17</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
 
     <build>
+        <resources>
+            <resource>
+                <directory>${project.basedir}</directory>
+                <targetPath>${project.build.outputDirectory}</targetPath>
+                <includes>
+                    <include>sonar-project.properties</include>
+                </includes>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <inherited>false</inherited>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
                 <version>3.3.1</version>
                 <configuration>
-                    <encoding>UTF-8</encoding>
+                    <encoding>${project.build.sourceEncoding}</encoding>
                     <useDefaultDelimiters>false</useDefaultDelimiters>
                     <delimiters>
                         <delimiter>${*}</delimiter>
@@ -174,10 +194,11 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>3.8.1</version>
+                    <inherited>false</inherited>
                     <configuration>
-                        <source>${maven.compiler.source}</source>
-                        <target>${maven.compiler.target}</target>
                         <encoding>${project.build.sourceEncoding}</encoding>
+                        <source>${java.version}</source>
+                        <target>${java.version}</target>
                     </configuration>
                 </plugin>
             </plugins>
@@ -215,22 +236,22 @@
                         </executions>
                     </plugin>
                     <plugin>
-                        <groupId>org.apache.maven.surefire</groupId>
-                        <artifactId>surefire-api</artifactId>
-                        <version>3.5.3</version>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>3.5.5</version>
                         <configuration>
                             <useModulePath>false</useModulePath>
                             <!--suppress UnresolvedMavenProperty -->
                             <argLine>
-                                -javaagent:"${settings.localRepository}/org/mockito/mockito-core/${mockito.version}/mockito-core-${mockito.version}.jar"
-                                -Xshare:off ${argLine}
+                                @{argLine}
+                                -Xshare:off
                             </argLine>
                         </configuration>
                     </plugin>
                     <plugin>
                         <groupId>org.sonarsource.scanner.maven</groupId>
                         <artifactId>sonar-maven-plugin</artifactId>
-                        <version>4.0.0.4121</version>
+                        <version>3.11.0.3922</version>
                     </plugin>
                 </plugins>
             </build>
