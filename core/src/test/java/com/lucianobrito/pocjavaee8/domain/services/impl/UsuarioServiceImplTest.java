@@ -1,21 +1,20 @@
 package com.lucianobrito.pocjavaee8.domain.services.impl;
 
-import com.lucianobrito.pocjavaee8.exceptions.errors.BusinessException;
-import com.lucianobrito.pocjavaee8.exceptions.errors.ResourceNotFoundException;
 import com.lucianobrito.pocjavaee8.domain.dtos.UsuarioDto;
 import com.lucianobrito.pocjavaee8.domain.entities.Usuario;
 import com.lucianobrito.pocjavaee8.domain.repositories.UsuarioRepository;
-import org.junit.jupiter.api.AfterEach;
+import com.lucianobrito.pocjavaee8.exceptions.errors.BusinessException;
+import com.lucianobrito.pocjavaee8.exceptions.errors.ResourceNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -44,25 +43,15 @@ class UsuarioServiceImplTest {
 
     private Usuario usuario;
 
-    private AutoCloseable autoCloseable;
-
 
     @BeforeEach
     void setUp() {
-        autoCloseable = MockitoAnnotations.openMocks(this);
         getMocks();
-    }
-
-    @AfterEach
-    void tearDown() throws Exception {
-        if (autoCloseable != null) {
-            autoCloseable.close();
-        }
     }
 
     @Test
     void findAll() {
-        when(usuarioRepository.findAll()).thenReturn(List.of(new Usuario()));
+        when(usuarioRepository.findAll()).thenReturn(Collections.singletonList(new Usuario()));
 
         List<UsuarioDto> response = usuarioService.findAll();
 

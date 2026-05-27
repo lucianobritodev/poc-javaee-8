@@ -3,17 +3,15 @@ package com.lucianobrito.pocjavaee8.controllers;
 import com.lucianobrito.pocjavaee8.domain.dtos.UsuarioDto;
 import com.lucianobrito.pocjavaee8.domain.services.UsuarioService;
 import org.apache.http.HttpStatus;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import javax.ws.rs.core.Response;
 
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -33,23 +31,9 @@ class UsuarioControllerTest {
     @Mock
     private UsuarioService usuarioService;
 
-    private AutoCloseable autoCloseable;
-
-    @BeforeEach
-    void setUp() {
-        autoCloseable = MockitoAnnotations.openMocks(this);
-    }
-
-    @AfterEach
-    void tearDown() throws Exception {
-        if (autoCloseable != null) {
-            autoCloseable.close();
-        }
-    }
-
     @Test
     void findAll() {
-        when(usuarioService.findAll()).thenReturn(List.of());
+        when(usuarioService.findAll()).thenReturn(Collections.emptyList());
 
         Response response = usuarioController.findAll();
 
